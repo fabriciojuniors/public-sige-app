@@ -1,0 +1,7 @@
+{
+  "name": "public-sige-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

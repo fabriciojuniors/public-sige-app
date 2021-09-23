@@ -1,0 +1,6 @@
+{
+	"appId": "pub.sige.app",
+	"appName": "public-sige-app",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
