@@ -8,3 +8,5 @@ import { Component } from '@angular/core';
 export class AppComponent {
   constructor() {}
 }
+
+export const BASE_URL = "https://sige-app.herokuapp.com";

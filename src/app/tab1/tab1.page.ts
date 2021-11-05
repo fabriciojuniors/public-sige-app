@@ -9,4 +9,10 @@ export class Tab1Page {
 
   constructor() {}
 
+  loadData(evento){
+    setTimeout(() => {
+      evento.target.complete()
+    }, 5000);
+  }
+
 }
