@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AlertController, LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { Usuario } from '../models/usuario';
 import { LoginService } from '../services/login.service';
@@ -9,6 +9,11 @@ import { LoginService } from '../services/login.service';
   styleUrls: ['./cadastro-usuario.page.scss'],
 })
 export class CadastroUsuarioPage implements OnInit {
+
+  @Input() titulo;
+  @Input() txtBotao;
+  @Input() editar;
+  @Input() msgSucesso;
 
   public usuario : Usuario = {
     id: 0,

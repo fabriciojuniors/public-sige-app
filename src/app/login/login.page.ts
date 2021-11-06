@@ -64,6 +64,12 @@ export class LoginPage implements OnInit {
   async cadastrar(){
     const modal = await this.modalController.create({
       component: CadastroUsuarioPage,
+      componentProps: {
+        'titulo': 'Cadastre-se',
+        'txtBotao': 'Finalizar cadastro',
+        'editar': true,
+        'msgSucesso': 'Registro finalizado com sucesso.'
+      },
       presentingElement: await this.modalController.getTop() // Get the top-most ion-modal
     });
     return await modal.present();
