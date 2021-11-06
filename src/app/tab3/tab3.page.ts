@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { CadastroUsuarioPage } from '../cadastro-usuario/cadastro-usuario.page';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-tab3',
@@ -10,11 +11,13 @@ import { CadastroUsuarioPage } from '../cadastro-usuario/cadastro-usuario.page';
 })
 export class Tab3Page implements OnInit{
   usuario = null;
-  constructor(private modalController : ModalController, private router : Router) {
-    this.usuario = JSON.parse(localStorage.getItem("usuario"));
+  constructor(private modalController : ModalController, private router : Router, private loginService : LoginService) {
+    this.usuario = loginService.getUsuario()
   }
   ngOnInit(): void {
-    this.usuario = JSON.parse(localStorage.getItem("usuario"));
+    this.loginService.usuarioLogado.subscribe(value => {
+      this.usuario = value;
+    })
   }
 
   async atualizarDados(){

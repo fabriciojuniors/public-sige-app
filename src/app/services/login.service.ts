@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { BASE_URL } from '../app.component';
 import { Usuario } from '../models/usuario';
 
@@ -9,6 +9,8 @@ import { Usuario } from '../models/usuario';
 })
 export class LoginService {
 
+  
+  
   public usuario: Usuario = {
     id: 0,
     cpf: "",
@@ -31,6 +33,8 @@ export class LoginService {
     senha: ""
   };
 
+  public usuarioLogado: BehaviorSubject<Usuario> = new BehaviorSubject<Usuario>(this.usuario);
+  
   constructor(private http: HttpClient) {
     this.usuario = {
       id: 0,
@@ -60,6 +64,10 @@ export class LoginService {
     this.usuario = usuario;
   }
 
+  getUsuario(){
+    return this.usuario;
+  }
+
   isAuthenticated() {
     let usuario:Usuario = JSON.parse(localStorage.getItem("usuario"));
     let isAuthenticated = false;
@@ -75,7 +83,7 @@ export class LoginService {
     if(usuario.id > 0 && this.usuario.id == 0){
       this.usuario = usuario;
     }
-    
+    this.usuarioLogado.next(usuario);
     return isAuthenticated;
   }
 

@@ -86,7 +86,7 @@ export class LoginPage implements OnInit {
         } else {
           this.loginService.setUsuario(usuario);
           localStorage.setItem("usuario", JSON.stringify(usuario));
-          this.router.navigateByUrl("tabs");
+          this.router.navigateByUrl("tabs", { replaceUrl: true });
         }
       })
       .catch(err => {
