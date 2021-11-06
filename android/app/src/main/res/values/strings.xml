@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">public-sige-app</string>
+    <string name="title_activity_main">public-sige-app</string>
+    <string name="package_name">pub.sige.app</string>
+    <string name="custom_url_scheme">pub.sige.app</string>
+</resources>

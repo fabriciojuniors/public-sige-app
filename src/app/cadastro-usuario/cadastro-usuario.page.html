@@ -1,0 +1,96 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="primary">
+      <ion-button (click)="cancelar()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Cadastre-se</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle> <strong> Dados pessoais </strong></ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">CPF</ion-label>
+        <ion-input [(ngModel)]="usuario.cpf"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Nome</ion-label>
+        <ion-input [(ngModel)]="usuario.nome"></ion-input>
+      </ion-item> <br>
+      <ion-item>
+        <ion-label>Sexo</ion-label>
+        <ion-select [(ngModel)]="usuario.sexo" placeholder="Selecione">
+          <ion-select-option value="F">Feminino</ion-select-option>
+          <ion-select-option value="M">Masculino</ion-select-option>
+        </ion-select>
+      </ion-item> <br>
+      <ion-item>
+        <ion-label>Data de nascimento</ion-label>
+        <ion-input type="date" [(ngModel)]="usuario.nascimento"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Telefone</ion-label>
+        <ion-input [(ngModel)]="usuario.telefone"></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle> <strong> Dados de endereço </strong></ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">CEP</ion-label>
+        <ion-input [(ngModel)]="usuario.endereco.cep"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Rua</ion-label>
+        <ion-input [(ngModel)]="usuario.endereco.rua"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Numero</ion-label>
+        <ion-input [(ngModel)]="usuario.endereco.numero"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Cidade</ion-label>
+        <ion-input [(ngModel)]="usuario.endereco.cidade"></ion-input>
+      </ion-item> <br>
+      <ion-item>
+        <ion-label>Estado</ion-label>
+        <ion-select [(ngModel)]="usuario.endereco.uf" placeholder="Selecione">
+          <ion-select-option value="PR">Paraná</ion-select-option>
+          <ion-select-option value="SC">Santa Catarina</ion-select-option>
+          <ion-select-option value="RS">Rio Grande do Sul</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle> <strong> Dados de acesso </strong></ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">E-mail</ion-label>
+        <ion-input [(ngModel)]="usuario.email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Senha</ion-label>
+        <ion-input [(ngModel)]="usuario.senha" type="password"></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
+      <ion-button (click)="cadastrar()" expand="block">
+        Finalizar cadastro
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

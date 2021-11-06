@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoadingController, ToastController } from '@ionic/angular';
+import { LoadingController, ModalController, ToastController } from '@ionic/angular';
+import { CadastroUsuarioPage } from '../cadastro-usuario/cadastro-usuario.page';
 import { Usuario } from '../models/usuario';
 import { LoginService } from '../services/login.service';
 
@@ -35,7 +36,7 @@ export class LoginPage implements OnInit {
 
   showLoading = false;
   error = ""
-  constructor(private loginService : LoginService, private router : Router, public toastController: ToastController, public loadingController: LoadingController) { }
+  constructor(private loginService : LoginService, private router : Router, public toastController: ToastController, public loadingController: LoadingController, private modalController: ModalController) { }
 
   async presentToast(msg) {
     const toast = await this.toastController.create({
@@ -58,6 +59,14 @@ export class LoginPage implements OnInit {
   
   ngOnInit() {
     localStorage.removeItem("usuario");
+  }
+
+  async cadastrar(){
+    const modal = await this.modalController.create({
+      component: CadastroUsuarioPage,
+      presentingElement: await this.modalController.getTop() // Get the top-most ion-modal
+    });
+    return await modal.present();
   }
 
   entrar() {    
