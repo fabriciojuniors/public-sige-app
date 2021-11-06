@@ -12,48 +12,154 @@
       <ion-title size="large">Evento</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-searchbar placeholder="Pesquisar evento"></ion-searchbar>
 
-  <ion-list>
-    <ion-item>
-      <ion-avatar slot="start">
-        <img src="https://ionicframework.com/docs/demos/api/list/avatar-luke.png">
-      </ion-avatar>
-      <ion-label>
-        <h2>Evento 1</h2>
-        <h3>Let's Drop</h3>
-        <p>Listen, I've had a pretty messed up day...</p>
-      </ion-label>
-    </ion-item>
+  <ion-searchbar placeholder="Pesquisar evento" (change)="filtro($event)" [(ngModel)]="filtroNome"></ion-searchbar>
 
-    <ion-item>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content refreshingSpinner="circles" refreshingText="Buscando eventos...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+
+  <ion-list *ngIf="eventos">
+    <ion-item *ngFor="let evento of eventos">
       <ion-avatar slot="start">
-        <img src="https://ionicframework.com/docs/demos/api/list/avatar-luke.png">
+        <img [src]="evento.imagem64">
       </ion-avatar>
       <ion-label>
-        <h2>Evento 1</h2>
-        <h3>Let's Drop</h3>
-        <p>Listen, I've had a pretty messed up day...</p>
-      </ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-avatar slot="start">
-        <img src="https://ionicframework.com/docs/demos/api/list/avatar-luke.png">
-      </ion-avatar>
-      <ion-label>
-        <h2>Evento 1</h2>
-        <h3>Let's Drop</h3>
+        <h2> {{evento.nome}} </h2>
+        <h3> {{evento.local.nome}} </h3>
         <p>Listen, I've had a pretty messed up day...</p>
       </ion-label>
     </ion-item>
   </ion-list>
 
   <br>
-  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
-    <ion-infinite-scroll-content
-      loadingSpinner="crescent"
-      loadingText="Buscando mais eventos">
+  <ion-infinite-scroll *ngIf="hasNext" threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Buscando mais eventos">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
+
+  <div id="container" *ngIf="!showLoading && eventos.length == 0">
+    <p>Nenhum evento disponível no momento.</p>
+  </div>
+
+  <!-- Skeleton screen -->
+<div *ngIf="showLoading && eventos.length == 0">
+  <ion-list>
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</div>
 
 </ion-content>
