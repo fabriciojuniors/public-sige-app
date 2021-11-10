@@ -22,16 +22,17 @@
 
 
   <ion-list *ngIf="eventos">
-    <ion-item *ngFor="let evento of eventos">
-      <ion-avatar slot="start">
-        <img [src]="evento.imagem64">
-      </ion-avatar>
-      <ion-label>
-        <h2> {{evento.nome}} </h2>
-        <h3> {{evento.local.nome}} </h3>
-        <p>Listen, I've had a pretty messed up day...</p>
-      </ion-label>
-    </ion-item>
+    <ion-card *ngFor="let evento of eventos" (click)="detalheEvento(evento)">
+      <img [src]="evento.imagem64" width="100%" height="100px"/>
+      <ion-card-header>
+        <ion-card-subtitle>{{evento.local.nome}}</ion-card-subtitle>
+        <ion-card-title> {{evento.nome}} </ion-card-title>
+      </ion-card-header>
+      <ion-card-content *ngIf="evento.geraCertificado">
+        <ion-icon name="alert-circle-outline"></ion-icon>
+          Este evento gera certificado de participação!
+      </ion-card-content>
+    </ion-card>
   </ion-list>
 
   <br>

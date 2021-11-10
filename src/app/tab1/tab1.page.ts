@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
+import { DetalhesEventosPage } from '../detalhes-eventos/detalhes-eventos.page';
 import { Eventos } from '../models/evento';
 import { EventoService } from '../services/evento.service';
 
@@ -17,7 +18,8 @@ export class Tab1Page implements OnInit {
   showLoading = true;
 
   constructor(private eventoService: EventoService,
-    private toastController: ToastController) {
+    private toastController: ToastController,
+    private modalController: ModalController) {
     this.loadData(null);
   }
   ngOnInit(): void {
@@ -88,7 +90,17 @@ export class Tab1Page implements OnInit {
         this.presentToast("Erro ao carregar eventos");
       }
     )
+  }
 
+  async detalheEvento(evento){
+    const modal = await this.modalController.create({
+      component: DetalhesEventosPage,
+      componentProps: {
+        'evento': evento
+      },
+      presentingElement: await this.modalController.getTop() // Get the top-most ion-modal
+    });
+    return await modal.present();
   }
 
 }
