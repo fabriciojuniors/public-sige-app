@@ -13,5 +13,35 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <div *ngIf="isLoading" style="text-align: center; margin-top: 25px;">
+    <ion-spinner></ion-spinner>
+  </div>
+
+  <ion-list *ngIf="!isLoading">
+    <ion-item *ngFor="let item of carrinho.itemCarrinhos">
+      <ion-avatar slot="start">
+        <img [src]="item.ingresso.evento.imagem64" />
+      </ion-avatar>
+      <ion-label>
+        {{item.ingresso.evento.nome}}
+        <p><strong>Local: </strong> {{item.ingresso.evento.local.nome}} </p>
+        <p>
+          <strong>Data: </strong> {{item.ingresso.evento.dataFormatada }}
+          <strong>Hora: </strong> {{item.ingresso.evento.hora}}
+        </p>
+      </ion-label>
+      <ion-icon slot="end" name="add" (click)="dadosIngresso(item.ingresso)"></ion-icon>
+    </ion-item>
+    <div style="display: flex; flex-direction: row-reverse; margin: 20px 5px 0px 0px;">
+      <ion-label>
+        <strong>Total </strong> R${{carrinho.valorTotal}}
+      </ion-label>
+    </div>
+  </ion-list>
+
+  <ion-footer *ngIf="!isLoading">
+    <ion-button color="success" expand="block">
+      Finalizar
+    </ion-button>
+  </ion-footer>
 </ion-content>
