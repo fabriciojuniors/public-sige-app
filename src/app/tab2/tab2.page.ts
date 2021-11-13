@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController, ToastController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { Carrinho, FormaPagamento } from '../models/carrinho';
 import { Usuario } from '../models/usuario';
+import { PagamentoPage } from '../pagamento/pagamento.page';
 import { CarrinhoService } from '../services/carrinho.service';
 import { LoginService } from '../services/login.service';
 
@@ -29,7 +30,8 @@ export class Tab2Page implements OnInit {
     private loadingController: LoadingController,
     private toastController: ToastController,
     private alertController: AlertController,
-    private loginService : LoginService) {
+    private loginService : LoginService,
+    private modalController : ModalController) {
     this.getCarrinho();
     this.loginService.usuarioLogado.subscribe(value => {
       this.usuario = value;
@@ -54,10 +56,17 @@ export class Tab2Page implements OnInit {
     const { role, data } = await loading.onDidDismiss();
   }
 
+  async doRefresh(event) {
+    await this.getCarrinho();
+    event.target.complete();
+  }
+
+
   ngOnInit(): void {
     this.loginService.usuarioLogado.subscribe(value => {
       this.usuario = value;
     })
+    this.getCarrinho();
     console.log(this.carrinho);
 
   }
@@ -133,6 +142,15 @@ export class Tab2Page implements OnInit {
 
     await alert.present();
     const { role } = await alert.onDidDismiss();
+  }
+
+  async addPagamento(){
+    const modal = await this.modalController.create({
+      component: PagamentoPage,
+      componentProps: {'carrinho': this.carrinho},
+      presentingElement: await this.modalController.getTop() // Get the top-most ion-modal
+    });
+    return await modal.present();
   }
 
 }

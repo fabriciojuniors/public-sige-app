@@ -23,7 +23,7 @@
 
   <ion-list *ngIf="eventos">
     <ion-card *ngFor="let evento of eventos" (click)="detalheEvento(evento)">
-      <img [src]="evento.imagem64" width="100%" height="100px"/>
+      <!-- <img [src]="evento.imagem64" width="100%" height="100px"/> -->
       <ion-card-header>
         <ion-card-subtitle>{{evento.local.nome}}</ion-card-subtitle>
         <ion-card-title> {{evento.nome}} </ion-card-title>

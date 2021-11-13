@@ -13,20 +13,26 @@
     </ion-toolbar>
   </ion-header>
 
+  
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content refreshingSpinner="circles" refreshingText="Buscando eventos...">
+    </ion-refresher-content>
+  </ion-refresher>
+
   <div *ngIf="isLoading" style="text-align: center; margin-top: 25px;">
     <ion-spinner></ion-spinner>
   </div>
 
   <ion-list *ngIf="!isLoading">
     <ion-item *ngFor="let item of carrinho.itemCarrinhos">
-      <ion-avatar slot="start">
-        <img [src]="item.ingresso.evento.imagem64" />
-      </ion-avatar>
+      <!-- <ion-avatar slot="start">
+        <img [src]="item.ingresso.evento.imagem64" /> 
+      </ion-avatar> -->
       <ion-label>
         {{item.ingresso.evento.nome}}
         <p><strong>Local: </strong> {{item.ingresso.evento.local.nome}} </p>
         <p>
-          <strong>Data: </strong> {{item.ingresso.evento.dataFormatada }}
+          <strong>Data: </strong> {{item.ingresso.evento.data }}
           <strong>Hora: </strong> {{item.ingresso.evento.hora}}
         </p>
       </ion-label>
@@ -40,8 +46,9 @@
   </ion-list>
 
   <ion-footer *ngIf="!isLoading">
-    <ion-button color="success" expand="block">
-      Finalizar
+    <ion-button (click)="addPagamento()" color="success" expand="block">
+      Prosseguir com pagamento
+      <ion-icon name="card-outline"></ion-icon>
     </ion-button>
   </ion-footer>
 </ion-content>

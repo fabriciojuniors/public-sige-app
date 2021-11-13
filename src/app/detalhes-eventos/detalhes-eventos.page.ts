@@ -17,6 +17,7 @@ export class DetalhesEventosPage implements OnInit {
   @Input() evento;
   quantidade = 1;
   usuario: Usuario = null;
+  carrinho: Carrinho = null;
 
 
   constructor(private modalController: ModalController,
@@ -25,10 +26,11 @@ export class DetalhesEventosPage implements OnInit {
     private toastController: ToastController,
     private loadingController: LoadingController) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.loginService.usuarioLogado.subscribe(value => {
       this.usuario = value;
     })
+    await this.getCarrinho();
   }
 
   async presentToast(msg) {
@@ -54,49 +56,37 @@ export class DetalhesEventosPage implements OnInit {
     this.modalController.dismiss()
   }
 
+  async getCarrinho() {
+    await this.carrinhoService.getCarrinhoByUser().toPromise()
+      .then(res => {
+        this.carrinho = res;
+      })
+  }
+
   async addCarrinho(evento) {
     this.presentLoading("Adicionando ao carrinho");
-    await this.carrinhoService.getCarrinhoByUser().subscribe(
+    for (let i = 1; i <= this.quantidade; i++) {
+      let ingresso: Ingresso = {
+        id: 0,
+        cpf: this.usuario.cpf,
+        nome: this.usuario.nome,
+        evento: evento,
+        usuario: this.usuario
+      }
+
+      let item: ItemCarrinho = {
+        id: 0,
+        ingresso: ingresso
+      }
+
+      this.carrinho.itemCarrinhos.push(item);
+    }
+    console.log(this.carrinho);
+    this.carrinhoService.save(this.carrinho).subscribe(
       value => {
-        let carrinho: Carrinho = value;
-
-        for (let i = 1; i <= this.quantidade; i++) {
-          let ingresso: Ingresso = {
-            id: 0,
-            cpf: this.usuario.cpf,
-            nome: this.usuario.nome,
-            evento: evento,
-            usuario: this.usuario
-          }
-
-          let item: ItemCarrinho = {
-            id: 0,
-            ingresso: ingresso
-          }
-
-          carrinho.itemCarrinhos.push(item);
-        }
-        console.log(carrinho);
-        this.carrinhoService.save(carrinho).subscribe(
-          value => {
-            this.presentToast("Ingressos adicionados ao carrinho");
-            this.loadingController.dismiss();
-          },
-          error => {
-            if (error.error.mensagem) {
-              this.presentToast(error.error.mensagem)
-            } else if (error.error) {
-              let erros = JSON.stringify(error.error);
-              erros = erros.split("{").join("");
-              erros = erros.split("}").join("")
-              erros = erros.split("\"").join("");
-              erros = erros.split(":").join(": ");
-              let errosA = erros.split(",").join("<br>");
-              this.presentToast(errosA);
-            }
-            this.loadingController.dismiss();
-          }
-        )
+        this.presentToast("Ingressos adicionados ao carrinho");
+        this.loadingController.dismiss();
+        this.modalController.dismiss();
       },
       error => {
         if (error.error.mensagem) {

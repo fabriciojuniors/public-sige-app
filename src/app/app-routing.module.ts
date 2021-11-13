@@ -19,6 +19,10 @@ const routes: Routes = [
   {
     path: 'detalhes-eventos',
     loadChildren: () => import('./detalhes-eventos/detalhes-eventos.module').then( m => m.DetalhesEventosPageModule)
+  },
+  {
+    path: 'pagamento',
+    loadChildren: () => import('./pagamento/pagamento.module').then( m => m.PagamentoPageModule)
   }
 ];
 @NgModule({

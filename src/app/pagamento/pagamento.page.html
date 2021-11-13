@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="primary">
+      <ion-button (click)="cancelar()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Dados do pagamento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Forma de pagamento</ion-label>
+      <ion-select [(ngModel)]="carrinho.formaPagamento">
+        <ion-select-option value="PIX">PIX</ion-select-option>
+        <ion-select-option value="CARTAO">Cartão de crédito</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <ion-row *ngIf="carrinho.formaPagamento == 'PIX'">
+    <ion-col size="12">
+      <div style="display: flex; justify-content: center;">
+        <img src="../../assets/PIX.jpg" alt="">
+      </div>
+    </ion-col>
+    <ion-col size="12">
+      <p style="text-align: center;">
+        Para pagamento em PIX, após efetuado nossa equipe irá confirmar o pagamento dentro de 48h.
+      </p>
+    </ion-col>
+  </ion-row>
+
+  <ion-footer *ngIf="carrinho.formaPagamento">
+    <ion-button (click)="finalizar()" expand="block" color="success">
+      Finalizar pedido
+    </ion-button>
+  </ion-footer>
+
+</ion-content>

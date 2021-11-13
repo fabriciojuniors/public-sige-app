@@ -11,6 +11,5 @@ export interface Eventos {
     local: Local,
     parceiros: Parceiro[],
     valorIngresso: number,
-    imagem64: string,
     geraCertificado: boolean
 }
