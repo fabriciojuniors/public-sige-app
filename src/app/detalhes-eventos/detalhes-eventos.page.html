@@ -25,17 +25,32 @@
         <strong>Data: </strong> {{evento.dataFormatada }}
         <strong>Hora: </strong> {{evento.hora}}
       </p>
-      <p  *ngIf="!evento.geraCertificado"><strong>Valor: </strong> R${{evento.valorIngresso}} </p>
+      <p *ngIf="!evento.geraCertificado"><strong>Valor: </strong> R${{evento.valorIngresso}} </p>
       <p *ngIf="evento.geraCertificado"><strong>Duração: </strong> {{evento.duracao}} minutos </p>
-      <p *ngIf="evento.parceiros.length > 0"><strong>Realização: </strong> <span *ngFor="let parceiro of evento.parceiros"> {{parceiro.nome}}, </span> </p>
+      <p *ngIf="evento.parceiros.length > 0"><strong>Realização: </strong> <span
+          *ngFor="let parceiro of evento.parceiros"> {{parceiro.nome}}, </span> </p>
       <p *ngIf="evento.geraCertificado">
         <ion-icon name="alert-circle-outline"></ion-icon>
         Este evento gera certificado de participação!
       </p>
-      <ion-button (click)="addCarrinho()" expand="block" color="success">
-        <ion-icon name="cart-outline"></ion-icon>
-        Adicionar ao carrinho
-      </ion-button>
+
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="6">
+            <ion-item>
+              <ion-label position="fixed">Quantidade</ion-label>
+              <ion-input type="number" [(ngModel)]="quantidade"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="6">
+            <ion-button expand="block" color="success" (click)="addCarrinho(evento)">
+              Adicionar
+              <ion-icon name="cart-outline"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
     </ion-card-content>
 
   </ion-card>
