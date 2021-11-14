@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="primary">
+      <ion-button (click)="cancelar()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Meus ingressos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="isLoading" style="text-align: center; margin-top: 25px;">
+    <ion-spinner></ion-spinner>
+  </div>
+
+  <ion-list *ngIf="!isLoading">
+    <ion-item (click)="abrirIngresso(ingresso)" *ngFor="let ingresso of ingressos">
+      <ion-label>
+        {{ingresso.evento.nome}}
+        <p><strong>Local: </strong> {{ingresso.evento.local.nome}} </p>
+        <p>
+          <strong>Data: </strong> {{ingresso.evento.data }}
+          <strong>Hora: </strong> {{ingresso.evento.hora}}
+        </p>
+        <p>
+          <strong>Destinatário: </strong> {{ingresso.nome}}
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-card *ngIf="!isLoading && ingressos.length == 0">
+    <ion-card-content>
+      Nenhum ingresso adicionado ao carrinho.
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { CadastroUsuarioPage } from '../cadastro-usuario/cadastro-usuario.page';
+import { ListagemIngressosPage } from '../listagem-ingressos/listagem-ingressos.page';
 import { LoginService } from '../services/login.service';
 
 @Component({
@@ -32,6 +33,14 @@ export class Tab3Page implements OnInit{
       },
       presentingElement: await this.modalController.getTop() // Get the top-most ion-modal
     });
+    return await modal.present();
+  }
+
+  async ingressos(){
+    const modal = await this.modalController.create({
+      component: ListagemIngressosPage,
+      presentingElement: await this.modalController.getTop()
+    })
     return await modal.present();
   }
 }

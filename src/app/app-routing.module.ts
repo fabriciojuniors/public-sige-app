@@ -23,6 +23,10 @@ const routes: Routes = [
   {
     path: 'pagamento',
     loadChildren: () => import('./pagamento/pagamento.module').then( m => m.PagamentoPageModule)
+  },
+  {
+    path: 'listagem-ingressos',
+    loadChildren: () => import('./listagem-ingressos/listagem-ingressos.module').then( m => m.ListagemIngressosPageModule)
   }
 ];
 @NgModule({
