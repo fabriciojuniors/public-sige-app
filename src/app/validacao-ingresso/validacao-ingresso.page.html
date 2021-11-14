@@ -1,0 +1,46 @@
+<ion-header [hidden]="scanActive">
+  <ion-toolbar>
+    <ion-title>Validação de ingresso</ion-title>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/login']" routerLinkActive="router-link-active" >
+        <ion-icon name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content [hidden]="scanActive">
+<ion-card [hidden]="scanActive">
+  <ion-card-header>
+    <ion-card-title>Ler QR Code</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-button (click)="startScanner()" expand="block" [hidden]="scanActive" fill="solid" color="success">
+      <ion-icon slot="start" name="scan"></ion-icon> Iniciar scanner
+    </ion-button>
+  </ion-card-content>
+</ion-card>
+
+<ion-card [hidden]="scanActive" *ngIf="ingresso">
+  <ion-card-header>
+    <ion-card-title>Ingresso</ion-card-title>
+  </ion-card-header>
+  
+  <ion-card-content>
+    <h4 *ngIf="ingresso.statusIngresso == 'AUTORIZADO'" style="color: red;">Este ingresso já foi autorizada a entrada!</h4>
+    <p> <strong>Número: </strong> {{ingresso.id}}</p>
+    <p> <strong>Titular: </strong> {{ingresso.nome}} </p>
+    <p> <strong>CPF: </strong> {{ingresso.cpf}} </p>
+    <p> <strong>Evento: </strong> {{ingresso.evento.nome}} </p>
+    <ion-button *ngIf="ingresso.statusIngresso != 'AUTORIZADO'" (click)="autorizarEntrada(ingresso)" expand="block" color="success">
+      Liberar entrada
+    </ion-button>
+  </ion-card-content>
+</ion-card>
+</ion-content>
+
+<div class="scan-box" [hidden]="!scanActive" ></div>
+<ion-row [hidden]="!scanActive" class="scanner-buttons">
+  <ion-col class="ion-no-padding">
+    <ion-button (click)="stopScanner()" expand="block" fill="solid" color="success">Parar scanner</ion-button>
+  </ion-col>
+</ion-row>

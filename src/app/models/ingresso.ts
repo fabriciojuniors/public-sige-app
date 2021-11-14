@@ -6,5 +6,6 @@ export interface Ingresso {
     evento: Eventos,
     cpf: string,
     nome: string,
-    usuario: Usuario
+    usuario: Usuario,
+    statusIngresso: string
 }

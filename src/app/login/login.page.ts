@@ -86,7 +86,11 @@ export class LoginPage implements OnInit {
         } else {
           this.loginService.setUsuario(usuario);
           localStorage.setItem("usuario", JSON.stringify(usuario));
-          this.router.navigateByUrl("tabs", { replaceUrl: true });
+          if(usuario.nivel == 'C'){
+            this.router.navigateByUrl("tabs", { replaceUrl: true });
+          }else{
+            this.router.navigateByUrl("tabs/validacao", { replaceUrl: true });
+          }
         }
       })
       .catch(err => {

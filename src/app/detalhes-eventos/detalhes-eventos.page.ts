@@ -73,7 +73,8 @@ export class DetalhesEventosPage implements OnInit {
         cpf: this.usuario.cpf,
         nome: this.usuario.nome,
         evento: evento,
-        usuario: this.usuario
+        usuario: this.usuario,
+        statusIngresso: 'EMITIDO'
       }
 
       let item: ItemCarrinho = {

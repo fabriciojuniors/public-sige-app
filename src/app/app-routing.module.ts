@@ -27,6 +27,10 @@ const routes: Routes = [
   {
     path: 'listagem-ingressos',
     loadChildren: () => import('./listagem-ingressos/listagem-ingressos.module').then( m => m.ListagemIngressosPageModule)
+  },
+  {
+    path: 'validacao-ingresso',
+    loadChildren: () => import('./validacao-ingresso/validacao-ingresso.module').then( m => m.ValidacaoIngressoPageModule)
   }
 ];
 @NgModule({

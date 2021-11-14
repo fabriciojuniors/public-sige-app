@@ -13,4 +13,12 @@ export class IngressoService {
   getByUsuario(id):Observable<any>{
     return this.http.get(`${BASE_URL}/ingresso/usuario/${id}`);
   }
+
+  getById(id):Observable<any>{
+    return this.http.get(`${BASE_URL}/ingresso/${id}`);
+  }
+
+  autorizar(id):Observable<any>{
+    return this.http.post(`${BASE_URL}/ingresso/autorizar/${id}`, {});
+  }
 }
