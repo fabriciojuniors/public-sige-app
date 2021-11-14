@@ -64,6 +64,8 @@ export class DetalhesEventosPage implements OnInit {
   }
 
   async addCarrinho(evento) {
+    console.log(this.carrinho);
+    
     this.presentLoading("Adicionando ao carrinho");
     for (let i = 1; i <= this.quantidade; i++) {
       let ingresso: Ingresso = {
@@ -78,8 +80,11 @@ export class DetalhesEventosPage implements OnInit {
         id: 0,
         ingresso: ingresso
       }
-
-      this.carrinho.itemCarrinhos.push(item);
+      if(this.carrinho.itemCarrinhos == null){
+        this.carrinho.itemCarrinhos = [item];
+      }else{
+        this.carrinho.itemCarrinhos.push(item);
+      }
     }
     console.log(this.carrinho);
     this.carrinhoService.save(this.carrinho).subscribe(
@@ -89,6 +94,7 @@ export class DetalhesEventosPage implements OnInit {
         this.modalController.dismiss();
       },
       error => {
+        this.carrinho.itemCarrinhos = [];
         if (error.error.mensagem) {
           this.presentToast(error.error.mensagem)
         } else if (error.error) {

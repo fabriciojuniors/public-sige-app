@@ -34,6 +34,41 @@
     </ion-col>
   </ion-row>
 
+  
+  <ion-card *ngIf="carrinho.formaPagamento == 'CARTAO'">
+    <ion-card-header>
+      <ion-card-subtitle><strong>Dados do cartão</strong></ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">Titular do cartão</ion-label>
+        <ion-input type="text" [(ngModel)]="cartao.titular"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">CPF</ion-label>
+        <ion-input type="text" [(ngModel)]="cartao.cpf"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Número do cartão</ion-label>
+        <ion-input type="text" [(ngModel)]="cartao.numero"></ion-input>
+      </ion-item>
+      <ion-row>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="floating">Ano vencimento</ion-label>
+            <ion-input type="text" [(ngModel)]="cartao.anoVencimento"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="floating">Mês de vencimento</ion-label>
+            <ion-input type="text" [(ngModel)]="cartao.mesVencimento"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+
   <ion-footer *ngIf="carrinho.formaPagamento">
     <ion-button (click)="finalizar()" expand="block" color="success">
       Finalizar pedido

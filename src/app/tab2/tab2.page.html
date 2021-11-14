@@ -13,7 +13,7 @@
     </ion-toolbar>
   </ion-header>
 
-  
+
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content refreshingSpinner="circles" refreshingText="Buscando eventos...">
     </ion-refresher-content>
@@ -23,21 +23,26 @@
     <ion-spinner></ion-spinner>
   </div>
 
-  <ion-list *ngIf="!isLoading">
-    <ion-item *ngFor="let item of carrinho.itemCarrinhos">
-      <!-- <ion-avatar slot="start">
+  <ion-list *ngIf="!isLoading && carrinho.itemCarrinhos.length > 0">
+    <ion-item-sliding *ngFor="let item of carrinho.itemCarrinhos">
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="remover(item)">Remover</ion-item-option>
+      </ion-item-options>
+      <ion-item>
+        <!-- <ion-avatar slot="start">
         <img [src]="item.ingresso.evento.imagem64" /> 
       </ion-avatar> -->
-      <ion-label>
-        {{item.ingresso.evento.nome}}
-        <p><strong>Local: </strong> {{item.ingresso.evento.local.nome}} </p>
-        <p>
-          <strong>Data: </strong> {{item.ingresso.evento.data }}
-          <strong>Hora: </strong> {{item.ingresso.evento.hora}}
-        </p>
-      </ion-label>
-      <ion-icon slot="end" name="add" (click)="dadosIngresso(item.ingresso)"></ion-icon>
-    </ion-item>
+        <ion-label>
+          {{item.ingresso.evento.nome}}
+          <p><strong>Local: </strong> {{item.ingresso.evento.local.nome}} </p>
+          <p>
+            <strong>Data: </strong> {{item.ingresso.evento.data }}
+            <strong>Hora: </strong> {{item.ingresso.evento.hora}}
+          </p>
+        </ion-label>
+        <ion-icon slot="end" name="add" (click)="dadosIngresso(item.ingresso)"></ion-icon>
+      </ion-item>
+    </ion-item-sliding>
     <div style="display: flex; flex-direction: row-reverse; margin: 20px 5px 0px 0px;">
       <ion-label>
         <strong>Total </strong> R${{carrinho.valorTotal}}
@@ -45,10 +50,19 @@
     </div>
   </ion-list>
 
-  <ion-footer *ngIf="!isLoading">
-    <ion-button (click)="addPagamento()" color="success" expand="block">
+  <ion-card *ngIf="carrinho.itemCarrinhos.length == 0">
+    <ion-card-content>
+      Nenhum ingresso adicionado ao carrinho.
+    </ion-card-content>
+  </ion-card>
+
+  <ion-footer *ngIf="!isLoading && carrinho.itemCarrinhos.length > 0">
+    <ion-button *ngIf="carrinho.valorTotal > 0" (click)="addPagamento()" color="success" expand="block">
       Prosseguir com pagamento
       <ion-icon name="card-outline"></ion-icon>
+    </ion-button>
+    <ion-button *ngIf="carrinho.valorTotal == 0" color="success" (click)="finalizar()" expand="block">
+      Finalizar pedido
     </ion-button>
   </ion-footer>
 </ion-content>

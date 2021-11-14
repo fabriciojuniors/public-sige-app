@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AlertController, LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { Carrinho, FormaPagamento } from '../models/carrinho';
 import { Usuario } from '../models/usuario';
@@ -31,7 +32,8 @@ export class Tab2Page implements OnInit {
     private toastController: ToastController,
     private alertController: AlertController,
     private loginService : LoginService,
-    private modalController : ModalController) {
+    private modalController : ModalController,
+    private router : Router) {
     this.getCarrinho();
     this.loginService.usuarioLogado.subscribe(value => {
       this.usuario = value;
@@ -151,6 +153,55 @@ export class Tab2Page implements OnInit {
       presentingElement: await this.modalController.getTop() // Get the top-most ion-modal
     });
     return await modal.present();
+  }
+
+  remover(item){
+    this.carrinhoService.remover(this.usuario.id, item.id).subscribe(
+      value => {
+        this.carrinho = value;
+        this.presentToast("Ingresso removido");
+      },
+      error => {
+        if (error.error.mensagem) {
+          this.presentToast(error.error.mensagem)
+        } else if (error.error) {
+          let erros = JSON.stringify(error.error);
+          erros = erros.split("{").join("");
+          erros = erros.split("}").join("")
+          erros = erros.split("\"").join("");
+          erros = erros.split(":").join(": ");
+          let errosA = erros.split(",").join("<br>");
+          this.presentToast(errosA);
+        }
+      }
+    )
+  }
+
+  finalizar(){
+    this.presentLoading("Finalizando pedido");
+    this.carrinho.formaPagamento = FormaPagamento.GRATIS;
+    this.carrinhoService.finalizar(this.carrinho).subscribe(
+      value => {
+        this.presentToast("Pedido finalizado com sucesso.");
+        this.loadingController.dismiss();
+        this.modalController.dismiss();
+        this.router.navigateByUrl("/tabs/tab1");
+      },
+      error => {
+        if (error.error.mensagem) {
+          this.presentToast(error.error.mensagem)
+        } else if (error.error) {
+          let erros = JSON.stringify(error.error);
+          erros = erros.split("{").join("");
+          erros = erros.split("}").join("")
+          erros = erros.split("\"").join("");
+          erros = erros.split(":").join(": ");
+          let errosA = erros.split(",").join("<br>");
+          this.presentToast(errosA);
+        }
+        this.loadingController.dismiss();
+      }
+    )
   }
 
 }

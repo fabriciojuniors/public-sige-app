@@ -14,8 +14,9 @@ export interface Carrinho {
 }
 
 export enum FormaPagamento {
-    PIX ="Pix",
-    CARTAO = "Cartao"
+    PIX ="PIX",
+    CARTAO = "CARTAO",
+    GRATIS = "GRATIS"
 }
 
 export enum StatusPagamento {

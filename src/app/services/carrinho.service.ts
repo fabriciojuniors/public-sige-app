@@ -31,4 +31,8 @@ export class CarrinhoService {
     return this.http.post(`${BASE_URL}/carrinho/finalizar`, carrinho);
   }
 
+  remover(usuario, item): Observable<any>{
+    return this.http.delete(`${BASE_URL}/carrinho/${usuario}/${item}`);
+  }
+
 }

@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { Carrinho, FormaPagamento } from '../models/carrinho';
+import { Cartao } from '../models/cartao';
 import { CarrinhoService } from '../services/carrinho.service';
 
 @Component({
@@ -12,6 +13,14 @@ import { CarrinhoService } from '../services/carrinho.service';
 export class PagamentoPage implements OnInit {
 
   @Input() carrinho : Carrinho;
+  cartao : Cartao = {
+    id: 0,
+    anoVencimento: 2021,
+    mesVencimento: 1,
+    cpf: '',
+    numero: '',
+    titular: ''
+  }
 
   constructor(private modalController : ModalController,
     private alertController : AlertController,
@@ -66,6 +75,9 @@ export class PagamentoPage implements OnInit {
 
   async finalizar(){
     this.presentLoading("Finalizando pedido");
+    if(this.carrinho.formaPagamento == FormaPagamento.CARTAO){
+      this.carrinho.cartao = this.cartao;
+    }
     await this.carrinhoService.finalizar(this.carrinho).subscribe(
       value => {
         this.presentToast("Pedido finalizado com sucesso.");
