@@ -12,4 +12,14 @@ export interface Eventos {
     parceiros: Parceiro[],
     valorIngresso: number,
     geraCertificado: boolean
+    classificacaoIndicativa : ClassificacaoIndicativa
+}
+
+export enum ClassificacaoIndicativa {
+    L,
+    DEZ,
+    DOZE,
+    QUATORZE,
+    DEZESSEIS,
+    DEZOITO,
 }

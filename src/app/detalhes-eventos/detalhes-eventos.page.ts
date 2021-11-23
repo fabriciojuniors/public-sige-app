@@ -113,5 +113,28 @@ export class DetalhesEventosPage implements OnInit {
 
   }
 
+  getClassificacao(classificacaoIndicativa){
+    switch (classificacaoIndicativa) {
+      case "L":
+        return "Livre para todos os públicos"
+        break;
+      case "DEZ":
+        return "Proíbido para menores de 10 anos"
+        break;
+      case "DOZE":
+        return "Proíbido para menores de 12 anos"
+        break;
+      case "QUATORZE":
+        return "Proíbido para menores de 14 anos"
+        break;
+      case "DEZESSEIS":
+        return "Proíbido para menores de 16 anos"
+        break;
+      case "DEZOITO":
+        return "Proíbido para menores de 18 anos"
+        break;
+    }
+  }
+
 
 }
